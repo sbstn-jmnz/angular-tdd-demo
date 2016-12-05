@@ -39,4 +39,25 @@ describe("The Address Book App", function(){
     });
   });
 
+  describe("Proper filter",function(){
+    beforeEach(function(){
+      module("AddressBook");
+      inject(function($injector){
+        proper = $injector.get("$filter")("proper");
+      });
+    });
+    it('Proper case a string', function(){
+      expect(proper("ned stark")).to.equal("Ned Stark");
+      expect(proper("cesrsei lamiester")).to.equal("Cesrsei Lamiester");
+    });
+    it( 'Turns a number into a string', function(){
+      expect(proper(42)).to.equal('42');
+    });
+    it('Throws ab error on an incompatuble type', function(){
+      assert.throws(function(){
+        proper(undefined); 
+      });
+    });
+  });
+
 });
