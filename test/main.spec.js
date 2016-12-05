@@ -55,7 +55,23 @@ describe("The Address Book App", function(){
     });
     it('Throws ab error on an incompatuble type', function(){
       assert.throws(function(){
-        proper(undefined); 
+        proper(undefined);
+      });
+    });
+  });
+
+  describe("Avatar", function(){
+    beforeEach(function(){
+      module("AddressBook");
+    });
+
+    it('Displays the capitalized first letter of a name', function(){
+      inject(function($rootScope, $compile){
+        $rootScope.contact = {name:'jhon arryn'};
+        var element = $compile('<avatar name=contact.name/>')($rootScope);
+        $rootScope.$digest();
+        var dirText = element.text();
+        expect(dirText).to.equal("J");
       });
     });
   });
